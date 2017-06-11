@@ -1,0 +1,12 @@
+sudo ethtool -s eth0 autoneg off speed 100 duplex full
+测网速：
+wget https://raw.github.com/sivel/speedtest-cli/master/speedtest.py
+$ chmod a+rx speedtest.py
+$ sudo mv speedtest.py /usr/local/bin/speedtest
+$ sudo chown root:root /usr/local/bin/speedtest
+speedtest
+建立工作空间
+mkdir -p catkin_ws/src
+catkin_init_workspace
+cd ..
+catkin_make -j8
