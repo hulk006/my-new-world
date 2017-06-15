@@ -42,3 +42,17 @@ catkin_init_workspace
 cd ..
 catkin_make -j8
 
+关闭终端
+ctrl d
+
+无法访问win分区
+sudo ntfsfix /dev/sda1
+安装flash
+下载abdobe flasher解压
+sudo cp libpepflashplayer.so /usr/lib/chromium-browser/plugins
+ sudo cp libflashplayer.so /usr/lib/chromium-browser/plugins 
+Cython 的安装
+
+下载https://pypi.python.org/pypi/Cython/  tar。gz
+sudo python setup.py install
+
