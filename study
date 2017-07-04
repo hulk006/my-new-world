@@ -1,0 +1,59 @@
+1\远程登录服务器
+ssh -l yanghao 192.168.1.48
+输入密码：yanghao123
+
+在本机上进行
+复制本地文件到服务器
+先把本地文件复制到tmp文件夹下面
+sudo scp -r ~/ai yanghao@192.168.1.48:/tmp
+在服务器上
+
+mv /tmp/ai/× ～/poker_ai/
+
+2、 ubuntu14.04的默认cmake版本是2.8，而我在clion中使用的需要是cmake3.2，需要将cmake升级到3.2。
+
+
+具体的步骤如下：
+
+通过PPA安装
+
+sudo add-apt-repository ppa:george-edison55/cmake-3.x
+sudo apt-get update
+
+
+如果你从来没装过cmake
+
+sudo apt-get install cmake
+
+
+如果你装过cmake
+
+sudo apt-get upgrade
+
+安装完后，用命令：cmake --version 查看当前的cmake版本，可以看到现在cmake的版本为3.2.2
+
+3、cmake编译
+这时候我们就可以写个如下的CMakeList.txt文件
+
+#cmake最小需要版本
+cmake_minimum_required(VERSION 2.8)
+
+#项目名字
+project(HELLOWORLD)
+
+#包含原程序,即把给定目录下的源程序复制给变量DIR_SRC
+aux_source_directory(DIR_SRC ./)
+
+#生成程序
+add_executable(helloworld ${DIR_SRC})
+
+然后执行如下命令
+
+    $mkdir build
+    $cd build
+    $cmake ..
+    $make
+    $./helloworld
+
+这样就编译好程序并运行。 
+
