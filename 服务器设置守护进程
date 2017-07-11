@@ -1,0 +1,71 @@
+作用：
+保证程序自己写的程序不会被彻底杀死
+开机启动服务器程序
+即使被杀死也可以重新启动
+实现：
+安装 sudo apt-get install supervisor
+
+配置模板：键入  echo_supervisord_conf >/etc/supervisord.conf生成一个supervisord的配置模板
+修改自己的Supervisord的配置文件
+; supervisor config file
+
+[unix_http_server]
+file=/var/run/supervisor.sock   ; (the path to the socket file)
+chmod=0777                      ; sockef file mode (default 0700)<F12>
+
+[inet_http_server]
+# Web管理界面设定
+port=9001
+chown= root:root
+username=root;
+password=123456;
+
+
+[supervisord]
+logfile=/var/log/supervisor/supervisord.log ; (main log file;default $CWD/supervisord.log)
+pidfile=/var/run/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+childlogdir=/var/log/supervisor            ; ('AUTO' child log dir, default $TEMP)
+
+; the below section must remain in the config file for RPC
+; (supervisorctl/web interface) to work, additional interfaces may be
+; added by defining them in separate rpcinterface: sections
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[supervisorctl]
+serverurl=unix:///var/run/supervisor.sock ; use a unix:// URL  for a unix socket
+
+; The [include] section can just contain the "files" setting.  This
+; setting can list multiple files (separated by whitespace or
+; newlines).  It can also contain wildcards.  The filenames are
+; interpreted as relative to this file.  Included files *cannot*
+; include files themselves.
+
+[include]
+files = /etc/supervisor/conf.d/*.conf
+####添加自己的守护进程，程序不要写成守护进程，一般的就可以
+[program:restart]
+command=/home/yh/game-pro/poker_ai/cmake-build-debug/poker_ai
+directory=/home/yh/game-pro/poker_ai/cmake-build-debug
+autostart=true
+autorestart=true
+startsecs=10
+startretries=5
+
+
+
+操作命令：
+4.1reload命令
+
+当你修改了supervisord.conf时，要让配置立即生效，键入：
+
+        sudo supervisorctl reload
+
+配置就生效了
+开机启动
+ chmod +x /etc/init.d/supervisord
+安装sysv-rc-conf
+sudo apt-get install sysv-rc-conf
+sudo sysv-rc-conf supervisord on
+ service supervisord start
+
